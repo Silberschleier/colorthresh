@@ -65,7 +65,7 @@ Argument parsing is handled at this point
 parser = argparse.ArgumentParser()
 parser.add_argument('input', type=str, help='Input file')
 parser.add_argument('--output', type=str, default='-', help='Output file')
-parser.add_argument('--threshold', type=int, choices=range(0, 255), default=130)
+parser.add_argument('--threshold', type=int, choices=range(0, 255), default=180)
 parser.add_argument('--colormodel', type=str, choices=['hsv', 'rgb'], default='rgb', help="The color-model to use")
 args = parser.parse_args()
 

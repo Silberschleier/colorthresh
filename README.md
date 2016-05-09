@@ -1,2 +1,2 @@
 # colothresh
-Colorful thresholding with OpenCV
+Colorful thresholding with Pillow

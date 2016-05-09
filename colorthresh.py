@@ -39,16 +39,22 @@ class RGBThreshold(object, Filter):
         t = kwargs["threshold"]
 
         # Red
-        if a > t: a = 255
-        else: a = 0
+        if a > t:
+            a = 255
+        else:
+            a = 0
 
         # Green
-        if b > t: b = 255
-        else: b = 0
+        if b > t:
+            b = 255
+        else:
+            b = 0
 
         # Blue
-        if c > t: c = 255
-        else: c = 0
+        if c > t:
+            c = 255
+        else:
+            c = 0
 
         return a, b, c
 
@@ -58,11 +64,20 @@ Argument parsing is handled at this point
 '''
 parser = argparse.ArgumentParser()
 parser.add_argument('input', type=str, help='Input file')
-parser.add_argument('--output', type=str, help='Output file')
+parser.add_argument('--output', type=str, default='-', help='Output file')
+parser.add_argument('--threshold', type=int, choices=range(0, 255), default=130)
+parser.add_argument('--colormodel', type=str, choices=['hsv', 'rgb'], default='rgb', help="The color-model to use")
 args = parser.parse_args()
 
 # Read the image
 im = Image.open(args.input)
 
-RGBThreshold().filter(im, threshold=130).show()
+if args.colormodel == 'rgb':
+    im = RGBThreshold().filter(im, threshold=args.threshold)
+elif args.colormodel == 'hsv':
+    im = HSVThreshold().filter(im, threshold=args.threshold)
 
+if args.output == '-':
+    im.show()
+else:
+    im.convert("RGB").save(args.output)

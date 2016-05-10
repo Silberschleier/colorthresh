@@ -1,4 +1,4 @@
-# colothresh
+# colorthresh
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000?style=plastic)](https://opensource.org/licenses/MIT)
 
 Colorful thresholding with Pillow

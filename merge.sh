@@ -6,5 +6,5 @@ do
     python ../colorthresh.py $@ --output "threshed_$f" "$f"
 done
 echo "Generation merged.pdf..."
-convert -page A4 threshed_* merged.pdf
+convert -page A4 -compress Zip threshed_* merged.pdf
 rm threshed_*

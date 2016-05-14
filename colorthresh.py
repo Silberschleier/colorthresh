@@ -39,24 +39,26 @@ class RGBThreshold(object, Filter):
         t = kwargs["threshold"]
 
         # Red
-        if a > t:
-            a = 255
-        else:
+        if a < t:
             a = 0
 
         # Green
-        if b > t:
-            b = 255
-        else:
+        if b < t:
             b = 0
 
         # Blue
-        if c > t:
-            c = 255
-        else:
+        if c < t:
             c = 0
 
-        return a, b, c
+        return self.select_max(a, b, c)
+
+    @staticmethod
+    def select_max(a, b, c):
+        if a > 0 and b > 0 and c > 0: return 255, 255, 255
+        if a > 0 and a >= b and a >= c: return 255, 0, 0
+        if b > 0 and b >= a and b >= c: return 0, 255, 0
+        if c > 0 and c >= a and c >= b: return 0, 0, 255
+        return 0, 0, 0
 
 
 '''

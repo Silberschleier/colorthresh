@@ -1,5 +1,5 @@
 import argparse
-from PIL import Image
+from PIL import Image, ImageEnhance
 
 
 class Filter():
@@ -67,10 +67,19 @@ parser.add_argument('input', type=str, help='Input file')
 parser.add_argument('--output', type=str, default='-', help='Output file')
 parser.add_argument('--threshold', type=int, choices=range(0, 255), default=180)
 parser.add_argument('--colormodel', type=str, choices=['hsv', 'rgb'], default='rgb', help="The color-model to use")
+parser.add_argument('--contrast', type=float, default=1.0)
+parser.add_argument('--sharpness', type=float, default=1.0)
+parser.add_argument('--brightness', type=float, default=1.0)
+parser.add_argument('--color', type=float, default=1.0)
+
 args = parser.parse_args()
 
 # Read the image
 im = Image.open(args.input)
+im = ImageEnhance.Contrast(image=im).enhance(args.color)
+im = ImageEnhance.Brightness(image=im).enhance(args.brightness)
+im = ImageEnhance.Sharpness(image=im).enhance(args.sharpness)
+im = ImageEnhance.Contrast(image=im).enhance(args.contrast)
 
 if args.colormodel == 'rgb':
     im = RGBThreshold().filter(im, threshold=args.threshold)
